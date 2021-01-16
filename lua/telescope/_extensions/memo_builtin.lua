@@ -1,5 +1,6 @@
 local conf = require'telescope.config'.values
 local entry_display = require'telescope.pickers.entry_display'
+local files = require'telescope.builtin.files'
 local finders = require'telescope.finders'
 local from_entry = require'telescope.from_entry'
 local path = require'telescope.path'
@@ -53,11 +54,16 @@ local function detect_memo_dir(memo_bin)
   end
 end
 
-M.list = function(opts)
+local function set_default(opts)
   opts = opts or {}
-  opts.entry_maker = utils.get_default(opts.entry_maker, gen_from_memo(opts))
   opts.memo_bin = utils.get_default(opts.memo_bin, 'memo')
   opts.memo_dir = utils.get_lazy_default(opts.memo_dir, detect_memo_dir(opts.memo_bin))
+  return opts
+end
+
+M.list = function(opts)
+  opts = set_default(opts)
+  opts.entry_maker = utils.get_default(opts.entry_maker, gen_from_memo(opts))
 
   pickers.new(opts, {
     prompt_title = 'Notes from mattn/memo',
@@ -76,6 +82,11 @@ M.list = function(opts)
       end,
     },
   }):find()
+end
+
+M.grep = function(opts)
+  opts = set_default(opts)
+  files.live_grep{cwd = opts.memo_dir}
 end
 
 return M

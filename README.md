@@ -27,8 +27,14 @@ use{
 
 Running `memo list` and list notes.
 
+### grep
+
+`:Telescope memo grep`
+
+Running `telescope.builtin.live_grep` on memo_dir.
+
 ## TODO
 
-* [ ] `memo grep`
+* [x] `memo grep`
 * [ ] `memo new` and others
 * [ ] enable to set path for `memo` executable
