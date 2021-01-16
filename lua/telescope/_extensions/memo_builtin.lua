@@ -65,13 +65,13 @@ M.list = function(opts)
     sorter = conf.file_sorter(opts),
     previewer = previewers.new_termopen_previewer{
       get_command = function(entry)
-        local path = from_entry.path(entry)
+        local filepath = from_entry.path(entry)
         if vim.fn.executable'glow' == 1 then
-          return {'glow', path}
+          return {'glow', filepath}
         elseif vim.fn.executable'bat' == 1 then
-          return {'bat', '--style', 'header,grid', path}
+          return {'bat', '--style', 'header,grid', filepath}
         else
-          return {'cat', path}
+          return {'cat', filepath}
         end
       end,
     },
