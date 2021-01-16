@@ -54,6 +54,7 @@ local function detect_memo_dir(memo_bin)
 end
 
 M.list = function(opts)
+  opts = opts or {}
   opts.entry_maker = utils.get_default(opts.entry_maker, gen_from_memo(opts))
   opts.memo_bin = utils.get_default(opts.memo_bin, 'memo')
   opts.memo_dir = utils.get_lazy_default(opts.memo_dir, detect_memo_dir(opts.memo_bin))
