@@ -31,6 +31,7 @@ local function gen_from_memo(opts)
     local fields = vim.split(line, sep, true)
     return {
       display = make_display,
+      filename = fields[1],
       ordinal = fields[1],
       path = opts.memo_dir..path.separator..fields[1],
       title = fields[2],
