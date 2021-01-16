@@ -1,8 +1,10 @@
 local conf = require'telescope.config'.values
 local entry_display = require'telescope.pickers.entry_display'
 local finders = require'telescope.finders'
+local from_entry = require'telescope.from_entry'
 local path = require'telescope.path'
 local pickers = require'telescope.pickers'
+local previewers = require'telescope.previewers'
 local utils = require'telescope.utils'
 
 local M = {}
@@ -59,7 +61,18 @@ M.list = function(opts)
     prompt_title = 'Notes from mattn/memo',
     finder = finders.new_oneshot_job({'memo', 'list', '--format', '{{.File}}'..sep..'{{.Title}}'}, opts),
     sorter = conf.file_sorter(opts),
-    previewer = nil,
+    previewer = previewers.new_termopen_previewer{
+      get_command = function(entry)
+        local path = from_entry.path(entry)
+        if vim.fn.executable'glow' == 1 then
+          return {'glow', path}
+        elseif vim.fn.executable'bat' == 1 then
+          return {'bat', '--style', 'header,grid', path}
+        else
+          return {'cat', path}
+        end
+      end,
+    },
   }):find()
 end
 
