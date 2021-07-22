@@ -3,7 +3,7 @@ local entry_display = require'telescope.pickers.entry_display'
 local files = require'telescope.builtin.files'
 local finders = require'telescope.finders'
 local from_entry = require'telescope.from_entry'
-local path = require'telescope.path'
+local Path = require'plenary.path'
 local pickers = require'telescope.pickers'
 local previewers = require'telescope.previewers'
 local utils = require'telescope.utils'
@@ -38,7 +38,7 @@ local function gen_from_memo(opts)
       display = make_display,
       filename = fields[1],
       ordinal = fields[1],
-      path = opts.memo_dir..path.separator..fields[1],
+      path = opts.memo_dir..Path.path.sep..fields[1],
       title = fields[2],
       value = fields[1],
     }
