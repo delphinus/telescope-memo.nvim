@@ -50,7 +50,7 @@ local function detect_memo_dir(memo_bin)
   for _, line in ipairs(lines) do
     local dir = line:match'memodir%s*=%s*"(.*)"'
     if dir then
-      return dir
+      return Path.expand(Path.new(dir))
     end
   end
   echo('cannot detect memodir', 'ErrorMsg')
