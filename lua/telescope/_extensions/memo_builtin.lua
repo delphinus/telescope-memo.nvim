@@ -58,7 +58,7 @@ end
 
 local function set_default(opts)
   opts = opts or {}
-  opts.memo_bin = utils.get_default(opts.memo_bin, 'memo')
+  opts.memo_bin = vim.F.if_nil(opts.memo_bin, 'memo')
   opts.memo_dir = utils.get_lazy_default(opts.memo_dir, detect_memo_dir, opts.memo_bin)
   return opts
 end
