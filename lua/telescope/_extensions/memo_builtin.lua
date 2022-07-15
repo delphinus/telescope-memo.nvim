@@ -1,6 +1,6 @@
 local conf = require'telescope.config'.values
 local entry_display = require'telescope.pickers.entry_display'
-local files = require'telescope.builtin.files'
+local builtin = require'telescope.builtin'
 local finders = require'telescope.finders'
 local from_entry = require'telescope.from_entry'
 local Path = require'plenary.path'
@@ -89,19 +89,19 @@ end
 M.live_grep = function(opts)
   local memo_opts = set_default(opts)
   opts = vim.tbl_extend('force', {cwd = memo_opts.memo_dir}, opts or {})
-  files.live_grep(opts)
+  builtin.live_grep(opts)
 end
 
 M.grep_string = function(opts)
   local memo_opts = set_default(opts)
   opts = vim.tbl_extend('force', {cwd = memo_opts.memo_dir}, opts or {})
-  files.grep_string(opts)
+  builtin.grep_string(opts)
 end
 
 M.grep = function(opts)
   echo('DEPELECATED: use live_grep or grep_string instead of grep', 'WarningMsg')
   opts = set_default(opts)
-  files.live_grep{cwd = opts.memo_dir}
+  builtin.live_grep{cwd = opts.memo_dir}
 end
 
 return M
